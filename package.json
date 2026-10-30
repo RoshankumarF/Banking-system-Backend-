@@ -1,0 +1,20 @@
+{
+  "name": "banking-ledger",
+  "version": "1.0.0",
+  "description": "This is the project for learning more about backend and practice it more in depth ",
+  "license": "ISC",
+  "author": "Roshan Kumar",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "mongoose": "^9.11.4"
+  }
+}
