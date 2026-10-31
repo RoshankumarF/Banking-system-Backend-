@@ -26,13 +26,13 @@ const userSchema = new Schema({
 
 // helps to hash the password 
 
-userSchema.pre("save",async function(next){
+userSchema.pre("save",async function( ){
   if(!this.isModified("password")){
-    return next()
-  }  
+    return
+  }
 
   const hash=await bcrypt.hash(this.password,10)
-  return next()
+  this.password=hash
 
 })
 
