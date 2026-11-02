@@ -35,7 +35,7 @@ res.cookie("token",token).status(201).json({user:{
 const userLogin=async(req,res)=>{
 const {email,password}=req.body
 
-const  user= await User.findOne({email:email})
+const  user= await User.findOne({email:email}).select("+password")
 
 if(!user){
      return res.json({

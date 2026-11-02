@@ -8,7 +8,7 @@ const router=express.Router()
 
 router.route("/register").post(userRegister)
 
-router.route("login").post(userLogin)
+router.route("/login").post(userLogin)
 
 
 export default router 
