@@ -13,16 +13,13 @@ app.use(cookieParser())
 
 // importing modules 
 import authRouter from "./routes/auth.route.js"
+import accountRouter from"./routes/account.routes.js"
 
 
-app.get("/test", (req, res) => {
-       console.log("Test route reached");
-    res.status(200).json({
-        message: "Server is working!"
-    });
-});
+ 
 
 app.use("/api/auth",authRouter)
+app.use("/api/accounts",accountRouter)
 
 
 export   {app}
