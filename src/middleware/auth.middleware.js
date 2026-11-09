@@ -2,7 +2,7 @@ import { User } from "../models/user.model.js";
 import jwt from "jsonwebtoken"
 
 async function authmiddleware(req,res,next) {
-    const token=req.cookies.token || req.headers.authorization?.split("")[1]
+    const token=req.cookies.token || req.headers.authorization?.split(" ")[1]
 
     if(!token){
         return res.status(401).json({
@@ -15,6 +15,8 @@ async function authmiddleware(req,res,next) {
         const user=await User.findById(decoded.userId).select("-password")
 
         req.user=user
+        console.log("i m in auth middleware")
+        console.log(req.user)
        return   next()
         
     } catch (error) {

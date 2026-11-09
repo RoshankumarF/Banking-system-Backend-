@@ -8,9 +8,11 @@ const accountSchema=new Schema({
         index:true
     },
     status:{
+        type:String,
         enum:{
             values:["ACTIVE","FROZEN","CLOSED"],
-            message:"Satus can be either ACTIVE,FROZEN,CLOSED"
+            message:"Satus can be either ACTIVE,FROZEN,CLOSED",
+            default:"ACTIVE"
         }
     },
     currency:{
