@@ -12,8 +12,9 @@ const accountSchema=new Schema({
         enum:{
             values:["ACTIVE","FROZEN","CLOSED"],
             message:"Satus can be either ACTIVE,FROZEN,CLOSED",
-            default:"ACTIVE"
-        }
+         
+        },
+          default:"ACTIVE"
     },
     currency:{
         type:String,
