@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authmiddleware } from "../middleware/auth.middleware.js";
+import { authmiddleware, systemUserMiddleware } from "../middleware/auth.middleware.js";
 import { createTransaction } from "../controller/transaction.controller.js";
 
 
@@ -7,5 +7,5 @@ const router=Router()
 
 router.route("/").post(authmiddleware,createTransaction)
 
-
+router.route("/system/initial-funds").post(systemUserMiddleware,createIntialFundsTrans)
 export default router
