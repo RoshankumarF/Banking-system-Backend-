@@ -1,4 +1,4 @@
-import mongoose ,{mongo, Schema, trusted} from "mongoose";
+import mongoose ,{Schema} from "mongoose";
 
 
 const ledgerSchema=new Schema({
@@ -46,4 +46,4 @@ ledgerSchema.pre(' deleteMany',preventLedgerModification)
 ledgerSchema.pre('findOneAndDelete',preventLedgerModification)
 ledgerSchema.pre('findOneAndReplace',preventLedgerModification)
 
-export const Ledger=mongoose.model("Ledger")
+export const Ledger=mongoose.model("Ledger",ledgerSchema)

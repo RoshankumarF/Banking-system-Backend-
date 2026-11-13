@@ -108,3 +108,7 @@ await session.commitTransaction()
 session.endSession()
 
 }
+
+export {
+    createTransaction
+}
