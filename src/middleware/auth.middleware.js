@@ -40,7 +40,7 @@ const systemUserMiddleware=async(req,res,next)=>{
         const user=await User.findById(decoded.userId).select("+systemUser")
 
         if(!user.systemUser){
-            return res.status(40).json({
+            return res.status(400).json({
                 message:"Forbidden access ,not a system user"
             })
         }

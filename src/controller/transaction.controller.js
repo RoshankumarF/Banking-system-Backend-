@@ -109,6 +109,68 @@ session.endSession()
 
 }
 
+const createIntialFundsTrans=async(req,res)=>{
+    const{toAccount,amount,idempotencyKey} = req.body
+    if(!toAccount || !amount || !idempotencyKey){
+        return res.status(400),json({
+            message:"toAccount,amount and idempotencyKey are required"
+        })
+    }
+
+    const toUserAccount=await Account.findOne({_id:toAccount})
+    if(!toUserAccount){
+        return res.status(400).json({
+            message:"Invalid toAccount"
+        })
+    }
+
+ const fromUserAccount=await Account.findOne({
+    systemUser:true,
+    user:req.user._id
+ })
+ if(!fromUserAccount){
+    return res.status(400).json({
+        message:"System user account not found"
+    })
+ }
+
+ const session=await mongoose.startSession()
+ session.startTransaction()
+
+ const transaction=await Transaction.create({
+    fromAccount:fromUserAccount._id,
+    toAccount,
+    amount,
+    idempotencyKey,
+    status:"PENDING"
+ },{session})
+
+ const debitLedgerEntry=await Ledger.create({
+    account:fromUserAccount._id,
+    ammount:amount,
+    transaction:transaction._id,
+    type:"DEBIT"
+
+ },{session})
+ const creditLedgerEntry=await Ledger.create({
+    account:toAccount,
+    amount:amount,
+    transaction:transaction._id,
+    type:"CREDIT"
+ },{session})
+ transaction.status="COMPLETED"
+ await transaction.save({session})
+ await session.commitTransaction()
+ session.endSession()
+
+ return res.status(201).json({
+    message:"Intial funds transaction completed successfull",
+    transaction:transaction
+ })
+
+}
+
 export {
-    createTransaction
+    createTransaction,
+    createIntialFundsTrans
 }

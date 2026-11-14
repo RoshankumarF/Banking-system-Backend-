@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authmiddleware, systemUserMiddleware } from "../middleware/auth.middleware.js";
-import { createTransaction } from "../controller/transaction.controller.js";
+import { createTransaction ,createIntialFundsTrans } from "../controller/transaction.controller.js";
 
 
 const router=Router()
