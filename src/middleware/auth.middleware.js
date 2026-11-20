@@ -39,12 +39,14 @@ const systemUserMiddleware=async(req,res,next)=>{
         const decoded=jwt.verify(token,process.env.JWT_SECRET)
         const user=await User.findById(decoded.userId).select("+systemUser")
 
-        if(!user.systemUser){
-            return res.status(400).json({
+        if(!user || !user.systemUser){
+            return res.status(403).json({
                 message:"Forbidden access ,not a system user"
             })
         }
-        
+
+        req.user=user
+        return next()
     } catch (error) {
         console.log(error)
         return res.status(401).json({
