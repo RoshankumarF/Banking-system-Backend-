@@ -15,8 +15,7 @@ async function authmiddleware(req,res,next) {
         const user=await User.findById(decoded.userId).select("-password")
 
         req.user=user
-        console.log("i m in auth middleware")
-        console.log(req.user)
+         
        return   next()
         
     } catch (error) {
